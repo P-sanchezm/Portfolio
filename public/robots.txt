@@ -1,9 +1,3 @@
-# Crawl rules for well-behaved search engines and bots.
-# Note: malicious scrapers ignore this file — it only controls indexing
-# by bots that choose to respect it (Google, Bing, etc.).
-
 User-agent: *
 Allow: /
-
-# Keep personal documents (CV, project reports) out of search results.
 Disallow: /documents/

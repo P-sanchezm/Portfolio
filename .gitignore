@@ -22,6 +22,10 @@ pnpm-debug.log*
 # Vite
 .vite/
 
+# Tooling / editor config and build caches
+.claude/
+*.tsbuildinfo
+
 # Personal LinkedIn export data — keep the folder + README, ignore the CSVs
 public/imports/linkedin/*
 !public/imports/linkedin/README.md

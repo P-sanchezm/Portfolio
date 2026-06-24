@@ -15,8 +15,6 @@ export const profile: Profile = {
     "Industrial Engineering & Business Administration student at ICAI–ICADE.",
   bio: "I am an Industrial Engineering and Business Administration student from Spain, currently studying at Universidad Pontificia Comillas ICAI–ICADE. I spent one academic year at Boston University and will complete the final semester of my master's at Singapore Management University. My work usually lives between engineering, business, technology and entrepreneurship: building tools, analyzing systems, designing technical projects, and trying to turn messy ideas into useful products.",
 
-  // Email is decoded at runtime (see ../lib/email) so the plaintext address
-  // is never committed to the repo or shipped as a literal in the JS bundle.
   email: getEmail(),
   linkedin: "https://www.linkedin.com/in/pabsanchezm/",
   github: "https://github.com/your-username",
