@@ -1,0 +1,320 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/*  Theme tokens — exposed to Tailwind as utilities                    */
+/*  e.g. bg-bg-main, text-accent-green, border-glass-border           */
+/* ------------------------------------------------------------------ */
+@theme {
+  --color-bg-main: #0b1a30;
+  --color-bg-secondary: #122843;
+  --color-bg-tertiary: #1c3a5e;
+
+  --color-glass: rgba(8, 24, 45, 0.58);
+  --color-glass-border: rgba(255, 255, 255, 0.14);
+
+  --color-text-main: #e6f1ff;
+  --color-text-muted: #8ea4bd;
+  --color-text-faint: #5b7a99;
+
+  --color-accent-green: #4fffd2;
+  --color-accent-teal: #00c2a8;
+  --color-accent-blue: #3b82f6;
+  --color-accent-gold: #d6aa4f;
+
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-glass: 1.25rem;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base layer                                                         */
+/* ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    --green-glow: rgba(79, 255, 210, 0.22);
+    --gold-glow: rgba(214, 170, 79, 0.2);
+    --blue-glow: rgba(59, 130, 246, 0.2);
+
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  * {
+    border-color: var(--color-glass-border);
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--color-bg-main);
+    color: var(--color-text-main);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  /* Honour the user's reduced-motion preference globally */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg-main);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      rgba(79, 255, 210, 0.35),
+      rgba(59, 130, 246, 0.35)
+    );
+    border-radius: 999px;
+    border: 2px solid var(--color-bg-main);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      180deg,
+      rgba(79, 255, 210, 0.6),
+      rgba(59, 130, 246, 0.6)
+    );
+  }
+
+  ::selection {
+    background: rgba(79, 255, 210, 0.25);
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-green);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Reusable component classes                                         */
+/* ------------------------------------------------------------------ */
+@layer components {
+  /* Frosted glass surface used across the whole UI */
+  .glass {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.02)
+    );
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid var(--color-glass-border);
+    box-shadow:
+      0 24px 80px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  .glass-soft {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.015)
+    );
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Thin gradient hairline border used on hover-able cards */
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(79, 255, 210, 0.45),
+      rgba(59, 130, 246, 0.15) 45%,
+      rgba(214, 170, 79, 0.4)
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+  .gradient-border:hover::before {
+    opacity: 1;
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    background: linear-gradient(
+      120deg,
+      var(--color-text-main) 0%,
+      var(--color-accent-green) 55%,
+      var(--color-accent-blue) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(
+      120deg,
+      var(--color-accent-gold),
+      #f4d488
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Glow helpers */
+  .glow-green {
+    box-shadow: 0 0 40px var(--green-glow);
+  }
+  .glow-gold {
+    box-shadow: 0 0 40px var(--gold-glow);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Utilities & ambient background                                    */
+/* ------------------------------------------------------------------ */
+@layer utilities {
+  /* Subtle technical grid overlay */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* Radial mask so the grid fades toward the edges */
+  .mask-radial {
+    -webkit-mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      #000 40%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      #000 40%,
+      transparent 100%
+    );
+  }
+
+  /* Hidden until the reveal hook adds .is-visible */
+  .reveal-init {
+    opacity: 0;
+    transform: translateY(28px);
+    will-change: transform, opacity;
+  }
+
+  /* When reduced motion is requested, never hide content behind reveals */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-init {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Ambient animated background blobs                                  */
+/* ------------------------------------------------------------------ */
+.ambient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.5;
+  pointer-events: none;
+  will-change: transform;
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -28px, 0) scale(1.06);
+  }
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(30px, 18px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 12s ease-in-out infinite;
+}
+.animate-drift {
+  animation: drift 18s ease-in-out infinite;
+}
+.animate-spin-slow {
+  animation: spin-slow 60s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-slow,
+  .animate-drift,
+  .animate-spin-slow {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,12 @@
+PROFILE PHOTO
+=============
+Put your photo in THIS folder (public/profile/) named exactly:
+
+  pablo-photo.png   -> shown in the hero glass card
+
+NOTES
+- Square works best (recommended ~600x600). It is cropped to a square, never
+  stretched. Until you add it, a gradient avatar with your initials "PS" shows.
+- PNG, JPG and WebP all work. To use another name/format, update `photo` in
+  src/data/profile.ts.
+- You can delete this .txt file once your photo is in (optional).

@@ -1,0 +1,15 @@
+SPACE LAUNCHER SERVICE WEB — images for this project
+====================================================
+Put this file in THIS folder (public/projects/space-launcher/):
+
+  cover.png  -> main card image  (recommended ~1280x800, 16:10)
+
+Want a gallery too? Add image files here (any name) and then list them in this
+project's `media` array in src/data/projects.ts:
+  { type: "image", src: "/projects/space-launcher/shot-1.png", caption: "..." }
+
+NOTES
+- File NAMES must match exactly (lowercase, .png).
+- Any pixel size works: images are auto-cropped to fit, never stretched.
+- PNG, JPG and WebP all work.
+- You can delete this .txt file once your image is in (optional).
