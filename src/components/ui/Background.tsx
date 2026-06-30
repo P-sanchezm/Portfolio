@@ -14,9 +14,15 @@ export function Background() {
       {/* technical grid, fading toward the edges */}
       <div className="bg-grid mask-radial absolute inset-0 opacity-50" />
 
-      {/* drifting accent blobs */}
+      {/*
+        Static accent blobs. They used to drift continuously, but a moving
+        blurred layer under the page forces every glass `backdrop-filter` to
+        re-blur its backdrop every frame (it can never be cached). Keeping them
+        still lets the browser cache the blurred backdrops — the single biggest
+        scroll-smoothness win — with no real loss of ambience.
+      */}
       <div
-        className="ambient-blob animate-float-slow"
+        className="ambient-blob"
         style={{
           width: 540,
           height: 540,
@@ -27,7 +33,7 @@ export function Background() {
         }}
       />
       <div
-        className="ambient-blob animate-drift"
+        className="ambient-blob"
         style={{
           width: 460,
           height: 460,
@@ -38,7 +44,7 @@ export function Background() {
         }}
       />
       <div
-        className="ambient-blob animate-float-slow"
+        className="ambient-blob"
         style={{
           width: 380,
           height: 380,
@@ -46,7 +52,6 @@ export function Background() {
           left: "30%",
           background:
             "radial-gradient(circle, rgba(214,170,79,0.22), transparent 70%)",
-          animationDelay: "3s",
         }}
       />
 

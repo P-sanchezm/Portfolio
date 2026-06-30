@@ -4,21 +4,27 @@ import { clsx } from "clsx";
 interface ProjectCoverProps {
   src?: string;
   title: string;
-  category?: string;
   className?: string;
+}
+
+/** Up to two uppercase initials, used for the placeholder watermark. */
+function initials(title: string): string {
+  return title
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
 }
 
 /**
  * Project cover image with a graceful gradient + monogram placeholder for
  * when the image file is missing (so the layout never breaks before you've
- * added real screenshots).
+ * added real screenshots). The placeholder shows only a faint monogram — the
+ * title and category live in the card body, so they aren't repeated here.
  */
-export function ProjectCover({
-  src,
-  title,
-  category,
-  className,
-}: ProjectCoverProps) {
+export function ProjectCover({ src, title, className }: ProjectCoverProps) {
   const [errored, setErrored] = useState(false);
 
   if (!src || errored) {
@@ -29,18 +35,12 @@ export function ProjectCover({
           className
         )}
       >
-        <div className="absolute -right-10 -top-10 size-40 rounded-full bg-accent-teal/20 blur-3xl" />
-        <div className="absolute -bottom-10 -left-10 size-40 rounded-full bg-accent-blue/20 blur-3xl" />
-        <div className="relative px-6 text-center">
-          {category && (
-            <span className="mb-2 block text-xs uppercase tracking-[0.25em] text-text-faint">
-              {category}
-            </span>
-          )}
-          <span className="font-display text-xl font-semibold text-gradient">
-            {title}
-          </span>
-        </div>
+        <span
+          aria-hidden
+          className="select-none font-display text-6xl font-bold tracking-tight text-white/[0.08]"
+        >
+          {initials(title)}
+        </span>
       </div>
     );
   }

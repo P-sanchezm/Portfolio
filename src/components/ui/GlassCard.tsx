@@ -20,7 +20,7 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
         soft ? "glass-soft" : "glass",
         "rounded-3xl",
         interactive &&
-          "gradient-border transition-[transform,box-shadow] duration-300 will-change-transform hover:-translate-y-1.5 hover:shadow-[0_34px_100px_rgba(0,0,0,0.5)]",
+          "gradient-border transition-[transform,box-shadow] duration-300 hover:-translate-y-1.5 hover:shadow-[0_34px_100px_rgba(0,0,0,0.5)]",
         className
       )}
       {...rest}

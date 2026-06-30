@@ -145,11 +145,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         <div className="overflow-y-auto">
           {/* Cover */}
           <div className="relative aspect-[16/9] w-full overflow-hidden">
-            <ProjectCover
-              src={project.cover}
-              title={project.title}
-              category={project.category}
-            />
+            <ProjectCover src={project.cover} title={project.title} />
             <div className="absolute inset-0 bg-gradient-to-t from-bg-main via-bg-main/40 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 flex items-end gap-4 p-6">
               {project.logo && (

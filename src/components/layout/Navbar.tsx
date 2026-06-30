@@ -6,6 +6,7 @@ import { useReducedMotion } from "../../animations/useReducedMotion";
 import { navLinks, socialLinks } from "../../data/links";
 import { profile } from "../../data/profile";
 import { Button } from "../ui/Button";
+import { ScrollProgress } from "../ui/ScrollProgress";
 import { MobileMenu } from "./MobileMenu";
 
 export function Navbar() {
@@ -62,7 +63,7 @@ export function Navbar() {
     <>
       <header
         ref={navRef}
-        className="fixed inset-x-0 top-0 z-40 flex justify-center px-4 pt-4 sm:pt-5"
+        className="fixed inset-x-0 top-0 z-40 flex flex-col items-center px-4 pt-4 sm:pt-5"
         style={reduced ? undefined : { opacity: 0 }}
       >
         <nav
@@ -96,15 +97,16 @@ export function Navbar() {
                 <li key={link.href}>
                   <a
                     href={link.href}
+                    aria-current={isActive ? "page" : undefined}
                     className={clsx(
-                      "relative rounded-full px-3.5 py-1.5 text-sm transition-colors",
+                      "relative rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors",
                       isActive
-                        ? "text-white"
+                        ? "text-accent-green"
                         : "text-text-muted hover:text-text-main"
                     )}
                   >
                     {isActive && (
-                      <span className="absolute inset-0 -z-10 rounded-full bg-white/[0.07] ring-1 ring-white/10" />
+                      <span className="absolute inset-0 -z-10 rounded-full bg-accent-green/15 ring-1 ring-accent-green/40 shadow-[0_0_18px_var(--green-glow)]" />
                     )}
                     {link.label}
                   </a>
@@ -150,6 +152,8 @@ export function Navbar() {
             </button>
           </div>
         </nav>
+
+        <ScrollProgress />
       </header>
 
       <MobileMenu

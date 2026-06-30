@@ -32,7 +32,10 @@ export function LogoBadge({ src, name, size = 56, className }: LogoBadgeProps) {
   return (
     <div
       className={clsx(
-        "glass-soft flex shrink-0 items-center justify-center overflow-hidden rounded-2xl",
+        "flex shrink-0 items-center justify-center overflow-hidden rounded-2xl",
+        // Logos are usually dark/coloured artwork made for light backgrounds,
+        // so give them a light tile; the monogram fallback keeps the glass look.
+        showImage ? "bg-white ring-1 ring-black/10" : "glass-soft",
         className
       )}
       style={{ width: size, height: size }}
@@ -43,7 +46,7 @@ export function LogoBadge({ src, name, size = 56, className }: LogoBadgeProps) {
           src={src}
           alt={`${name} logo`}
           loading="lazy"
-          className="h-full w-full object-contain p-2"
+          className="h-full w-full object-contain p-1.5"
           onError={() => setErrored(true)}
         />
       ) : (

@@ -50,12 +50,16 @@ export function useAnimeReveal<T extends HTMLElement = HTMLElement>(
 
     let done = false;
     const reveal = () => {
+      // Promote to a GPU layer only for the duration of the animation, then
+      // release it so we don't keep a `will-change` layer alive per card.
+      targets.forEach((t) => (t.style.willChange = "transform, opacity"));
       animate(targets, {
         opacity: [0, 1],
         translateY: [y, 0],
         duration,
         delay: stagger(staggerMs),
         ease: EASE.out,
+        onComplete: () => targets.forEach((t) => (t.style.willChange = "")),
       });
     };
 

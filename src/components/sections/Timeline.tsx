@@ -1,159 +1,77 @@
-import { useState } from "react";
-import { clsx } from "clsx";
 import { Section } from "../layout/Section";
 import { SectionHeader } from "../ui/SectionHeader";
-import { GlassCard } from "../ui/GlassCard";
 import { LogoBadge } from "../ui/LogoBadge";
-import { Tag } from "../ui/Tag";
 import { Icon } from "../ui/icons";
-import { timeline, timelineFilters } from "../../data/combinedTimeline";
-import type { TimelineEntry, TimelineType } from "../../types";
+import { timeline } from "../../data/combinedTimeline";
+import type { TimelineEntry } from "../../types";
 import { useStaggeredCards } from "../../animations/useStaggeredCards";
 
-const typeIcon: Record<TimelineType, "graduation" | "briefcase" | "award"> = {
-  education: "graduation",
-  experience: "briefcase",
-  accreditation: "award",
-};
+/** Leading 4-digit year of an entry's start, for chronological ordering. */
+const startYear = (entry: TimelineEntry): number =>
+  parseInt(entry.start, 10) || 0;
 
-const typeLabel: Record<TimelineType, string> = {
-  education: "Education",
-  experience: "Experience",
-  accreditation: "Accreditation",
-};
+/** Oldest → newest, so the strip reads left-to-right as a journey. */
+const journey = [...timeline].sort((a, b) => startYear(a) - startYear(b));
 
-function formatDates(entry: TimelineEntry): string {
+function formatRange(entry: TimelineEntry): string {
   if (!entry.end || entry.end === entry.start) return entry.start;
-  return `${entry.start} — ${entry.end}`;
+  return `${entry.start} – ${entry.end}`;
 }
 
-function TimelineRow({ entry, last }: { entry: TimelineEntry; last: boolean }) {
+/** A single stop on the journey: logo, dates, place and organization. */
+function Stop({ entry }: { entry: TimelineEntry }) {
   return (
-    <div data-card className="reveal-init relative flex gap-4 sm:gap-6">
-      {/* Rail */}
-      <div className="relative flex flex-col items-center">
-        <LogoBadge src={entry.logo} name={entry.organization} size={52} />
-        {!last && (
-          <span className="mt-2 w-px flex-1 bg-gradient-to-b from-glass-border to-transparent" />
-        )}
-      </div>
-
-      {/* Card */}
-      <GlassCard interactive className="mb-6 flex-1 p-5 sm:p-6">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-accent-green/10 px-3 py-1 text-xs font-medium text-accent-green">
-            <Icon name={typeIcon[entry.type]} className="size-3.5" />
-            {typeLabel[entry.type]}
-          </span>
-          <span className="rounded-full border border-glass-border px-3 py-1 font-mono text-xs text-text-muted">
-            {formatDates(entry)}
-          </span>
-        </div>
-
-        <h3 className="mt-3 font-display text-lg font-semibold text-text-main">
-          {entry.title}
-        </h3>
-        <p className="mt-0.5 text-sm font-medium text-accent-green/90">
-          {entry.organization}
+    <li
+      data-card
+      className="reveal-init relative flex flex-1 items-start gap-4 sm:flex-col sm:items-center sm:gap-3 sm:text-center"
+    >
+      <LogoBadge
+        src={entry.logo}
+        name={entry.organization}
+        size={48}
+        className="relative z-10"
+      />
+      <div className="min-w-0">
+        <p className="font-mono text-xs text-accent-green">
+          {formatRange(entry)}
         </p>
         {entry.location && (
-          <p className="mt-0.5 flex items-center gap-1 text-xs text-text-faint">
-            <Icon name="mapPin" className="size-3" />
+          <p className="mt-1 flex items-center gap-1 font-display text-sm font-semibold text-text-main sm:justify-center">
+            <Icon name="mapPin" className="size-3.5 shrink-0 text-text-faint" />
             {entry.location}
           </p>
         )}
-
-        {entry.description && (
-          <p className="mt-3 text-sm leading-relaxed text-text-muted">
-            {entry.description}
-          </p>
-        )}
-
-        {entry.tags && entry.tags.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-2">
-            {entry.tags.map((tag) => (
-              <Tag key={tag}>{tag}</Tag>
-            ))}
-          </div>
-        )}
-
-        {entry.links && entry.links.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-3">
-            {entry.links.map((link) => (
-              <a
-                key={link.label}
-                href={link.url}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors hover:text-accent-green"
-              >
-                <Icon name={link.icon ?? "external"} className="size-4" />
-                {link.label}
-              </a>
-            ))}
-          </div>
-        )}
-      </GlassCard>
-    </div>
-  );
-}
-
-/** Keyed by filter so the reveal animation replays on filter change. */
-function TimelineList({ entries }: { entries: TimelineEntry[] }) {
-  const ref = useStaggeredCards<HTMLDivElement>(70);
-  return (
-    <div ref={ref} className="mt-12">
-      {entries.length === 0 ? (
-        <p className="text-text-muted">Nothing here yet.</p>
-      ) : (
-        entries.map((entry, i) => (
-          <TimelineRow
-            key={entry.id}
-            entry={entry}
-            last={i === entries.length - 1}
-          />
-        ))
-      )}
-    </div>
+        <p className="mt-0.5 text-xs text-text-muted">{entry.organization}</p>
+      </div>
+    </li>
   );
 }
 
 export function Timeline() {
-  const [filter, setFilter] = useState<string>("all");
-
-  const entries =
-    filter === "all"
-      ? timeline
-      : timeline.filter((e) => e.type === filter);
+  const ref = useStaggeredCards<HTMLUListElement>(70);
 
   return (
-    <Section id="timeline">
+    <Section id="timeline" spacing="tight">
       <SectionHeader
         index="02"
         eyebrow="Journey"
-        title="Education, experience & accreditations"
-        description="Where I've studied, built and grown — across Madrid, Boston and Singapore."
+        title="The path so far"
+        description="Madrid, Boston and Singapore — where I've studied, built and grown."
       />
 
-      {/* Filters */}
-      <div className="mt-8 flex flex-wrap gap-2">
-        {timelineFilters.map((f) => (
-          <button
-            key={f.key}
-            onClick={() => setFilter(f.key)}
-            className={clsx(
-              "rounded-full border px-4 py-1.5 text-sm transition-colors",
-              filter === f.key
-                ? "border-accent-green/40 bg-accent-green/10 text-accent-green"
-                : "border-glass-border text-text-muted hover:text-text-main"
-            )}
-          >
-            {f.label}
-          </button>
+      <ul
+        ref={ref}
+        className="relative mt-12 flex flex-col gap-8 sm:flex-row sm:items-start sm:gap-4"
+      >
+        {/* Connecting rail — vertical on mobile, horizontal through the badges on desktop. */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute bottom-0 left-6 top-2 w-px bg-gradient-to-b from-transparent via-glass-border to-transparent sm:inset-x-6 sm:bottom-auto sm:top-6 sm:h-px sm:w-auto sm:bg-gradient-to-r"
+        />
+        {journey.map((entry) => (
+          <Stop key={entry.id} entry={entry} />
         ))}
-      </div>
-
-      <TimelineList key={filter} entries={entries} />
+      </ul>
     </Section>
   );
 }

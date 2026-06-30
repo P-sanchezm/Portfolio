@@ -66,7 +66,7 @@ export const interests: InterestGroup[] = [
     icon: "activity",
     description: "Staying sharp on and off the field.",
     items: ["Sports", "Skiing", "Sailing", "Padel", "Running"],
-    size: "lg",
+    size: "md",
     accent: "green",
   },
 ];

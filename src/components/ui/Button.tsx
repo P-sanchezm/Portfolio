@@ -4,7 +4,7 @@ import { Icon } from "./icons";
 import type { IconName } from "../../types";
 import { useReducedMotion } from "../../animations/useReducedMotion";
 
-type Variant = "primary" | "gold" | "ghost" | "outline";
+type Variant = "primary" | "gold" | "linkedin" | "ghost" | "outline";
 type Size = "sm" | "md" | "lg";
 
 interface CommonProps {
@@ -43,6 +43,8 @@ const variants: Record<Variant, string> = {
   primary:
     "text-bg-main font-semibold bg-gradient-to-r from-accent-green to-accent-blue shadow-[0_8px_30px_rgba(0,194,168,0.25)] hover:shadow-[0_0_36px_var(--green-glow)]",
   gold: "text-bg-main font-semibold bg-gradient-to-r from-accent-gold to-[#f4d488] shadow-[0_8px_30px_rgba(214,170,79,0.25)] hover:shadow-[0_0_36px_var(--gold-glow)]",
+  linkedin:
+    "text-white font-semibold bg-gradient-to-r from-[#0a66c2] to-accent-blue shadow-[0_8px_30px_rgba(10,102,194,0.3)] hover:shadow-[0_0_36px_var(--blue-glow)]",
   ghost:
     "glass-soft text-text-main hover:text-white hover:border-white/25 hover:bg-white/[0.07]",
   outline:
@@ -62,19 +64,40 @@ export function Button(props: ButtonProps) {
   } = props;
 
   const ref = useRef<HTMLElement>(null);
+  const rectRef = useRef<DOMRect | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const posRef = useRef({ x: 0, y: 0 });
   const reduced = useReducedMotion();
 
+  // Cache the rect on enter and write the transform inside one rAF per frame,
+  // so the per-move handler never forces a layout read or double-writes style.
+  const handleEnter = () => {
+    if (!magnetic || reduced) return;
+    rectRef.current = ref.current?.getBoundingClientRect() ?? null;
+  };
   const handleMove = (e: React.MouseEvent) => {
     if (!magnetic || reduced) return;
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const x = e.clientX - (r.left + r.width / 2);
-    const y = e.clientY - (r.top + r.height / 2);
-    el.style.transform = `translate(${x * 0.18}px, ${y * 0.28}px)`;
+    const r = rectRef.current;
+    if (!r) return;
+    posRef.current = {
+      x: e.clientX - (r.left + r.width / 2),
+      y: e.clientY - (r.top + r.height / 2),
+    };
+    if (rafRef.current !== null) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      const el = ref.current;
+      if (!el) return;
+      const { x, y } = posRef.current;
+      el.style.transform = `translate(${x * 0.18}px, ${y * 0.28}px)`;
+    });
   };
 
   const handleLeave = () => {
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
     const el = ref.current;
     if (el) el.style.transform = "";
   };
@@ -96,6 +119,7 @@ export function Button(props: ButtonProps) {
         ref={ref as React.Ref<HTMLAnchorElement>}
         href={href}
         className={classes}
+        onMouseEnter={handleEnter}
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
         {...anchorRest}

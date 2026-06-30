@@ -128,8 +128,8 @@
       rgba(255, 255, 255, 0.08),
       rgba(255, 255, 255, 0.02)
     );
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--color-glass-border);
     box-shadow:
       0 24px 80px rgba(0, 0, 0, 0.35),
@@ -142,8 +142,8 @@
       rgba(255, 255, 255, 0.05),
       rgba(255, 255, 255, 0.015)
     );
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
@@ -190,25 +190,6 @@
     color: transparent;
   }
 
-  .text-gradient-gold {
-    background: linear-gradient(
-      120deg,
-      var(--color-accent-gold),
-      #f4d488
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-
-  /* Glow helpers */
-  .glow-green {
-    box-shadow: 0 0 40px var(--green-glow);
-  }
-  .glow-gold {
-    box-shadow: 0 0 40px var(--gold-glow);
-  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -237,11 +218,12 @@
     );
   }
 
-  /* Hidden until the reveal hook adds .is-visible */
+  /* Hidden until the reveal hook animates it in. No permanent `will-change`:
+     the reveal hook adds it only for the duration of the animation and clears
+     it on complete, so we don't keep a GPU layer alive per card forever. */
   .reveal-init {
     opacity: 0;
     transform: translateY(28px);
-    will-change: transform, opacity;
   }
 
   /* When reduced motion is requested, never hide content behind reveals */
@@ -252,13 +234,6 @@
     }
   }
 
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -267,10 +242,9 @@
 .ambient-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
+  filter: blur(64px);
   opacity: 0.5;
   pointer-events: none;
-  will-change: transform;
 }
 
 @keyframes float-slow {
@@ -283,18 +257,6 @@
   }
 }
 
-@keyframes drift {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(30px, 18px, 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
 @keyframes spin-slow {
   to {
     transform: rotate(360deg);
@@ -304,16 +266,12 @@
 .animate-float-slow {
   animation: float-slow 12s ease-in-out infinite;
 }
-.animate-drift {
-  animation: drift 18s ease-in-out infinite;
-}
 .animate-spin-slow {
   animation: spin-slow 60s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-float-slow,
-  .animate-drift,
   .animate-spin-slow {
     animation: none !important;
   }

@@ -4,9 +4,9 @@
  * Centralising the imports here means the rest of the app imports from one
  * place, and we can tweak global timing/easing in a single file.
  */
-import { animate, createTimeline, stagger, svg, eases } from "animejs";
+import { animate, createTimeline, stagger, svg } from "animejs";
 
-export { animate, createTimeline, stagger, svg, eases };
+export { animate, createTimeline, stagger, svg };
 
 /** Returns true if the user has asked the OS for reduced motion. */
 export function prefersReducedMotion(): boolean {

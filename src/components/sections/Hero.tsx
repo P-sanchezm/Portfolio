@@ -111,7 +111,7 @@ export function Hero() {
               href={profile.linkedin}
               target="_blank"
               rel="noreferrer"
-              variant="ghost"
+              variant="linkedin"
               icon="linkedin"
             >
               LinkedIn

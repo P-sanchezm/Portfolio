@@ -110,16 +110,12 @@ export interface AboutPillar {
  */
 export type IconName =
   | "rocket"
-  | "cpu"
   | "briefcase"
   | "wrench"
   | "globe"
   | "shield"
   | "lightbulb"
   | "activity"
-  | "graduation"
-  | "award"
-  | "building"
   | "mapPin"
   | "external"
   | "github"
@@ -127,10 +123,5 @@ export type IconName =
   | "mail"
   | "download"
   | "fileText"
-  | "play"
-  | "code"
   | "layers"
-  | "gauge"
-  | "compass"
-  | "users"
   | "sparkles";

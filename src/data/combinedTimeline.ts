@@ -13,10 +13,3 @@ export const timeline: TimelineEntry[] = [
   ...manualTimeline,
   ...importedTimeline.filter((e) => !seen.has(e.id)),
 ];
-
-export const timelineFilters: { key: string; label: string }[] = [
-  { key: "all", label: "All" },
-  { key: "education", label: "Education" },
-  { key: "experience", label: "Experience" },
-  { key: "accreditation", label: "Accreditations" },
-];

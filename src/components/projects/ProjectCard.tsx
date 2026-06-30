@@ -22,19 +22,41 @@ export function ProjectCard({
 }: ProjectCardProps) {
   const featured = variant === "featured";
   const cardRef = useRef<HTMLDivElement>(null);
+  const rectRef = useRef<DOMRect | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const tiltRef = useRef({ px: 0, py: 0 });
   const reduced = useReducedMotion();
 
-  // Subtle 3D tilt toward the cursor (featured cards only).
+  // Subtle 3D tilt toward the cursor (featured cards only). The rect is cached
+  // on enter and the transform is written inside a single rAF per frame, so the
+  // mousemove handler never forces a synchronous layout (getBoundingClientRect)
+  // and never writes more than once per frame — no layout thrash on hover.
+  const handleEnter = () => {
+    if (!featured || reduced) return;
+    rectRef.current = cardRef.current?.getBoundingClientRect() ?? null;
+  };
   const handleMove = (e: React.MouseEvent) => {
     if (!featured || reduced) return;
-    const el = cardRef.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width - 0.5;
-    const py = (e.clientY - r.top) / r.height - 0.5;
-    el.style.transform = `perspective(900px) rotateX(${py * -4}deg) rotateY(${px * 5}deg) translateY(-6px)`;
+    const r = rectRef.current;
+    if (!r) return;
+    tiltRef.current = {
+      px: (e.clientX - r.left) / r.width - 0.5,
+      py: (e.clientY - r.top) / r.height - 0.5,
+    };
+    if (rafRef.current !== null) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      const el = cardRef.current;
+      if (!el) return;
+      const { px, py } = tiltRef.current;
+      el.style.transform = `perspective(900px) rotateX(${py * -4}deg) rotateY(${px * 5}deg) translateY(-6px)`;
+    });
   };
   const handleLeave = () => {
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
     const el = cardRef.current;
     if (el) el.style.transform = "";
   };
@@ -59,6 +81,7 @@ export function ProjectCard({
       aria-label={`Open case study: ${project.title}`}
       onClick={open}
       onKeyDown={onKey}
+      onMouseEnter={handleEnter}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       className={clsx(
@@ -67,16 +90,10 @@ export function ProjectCard({
       )}
     >
       {/* Cover */}
-      <div
-        className={clsx(
-          "relative overflow-hidden",
-          featured ? "aspect-[16/10]" : "aspect-[16/10]"
-        )}
-      >
+      <div className="relative aspect-[16/10] overflow-hidden">
         <ProjectCover
           src={project.cover}
           title={project.title}
-          category={project.category}
           className="transition-transform duration-500 group-hover:scale-[1.04]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-bg-main/85 via-bg-main/10 to-transparent" />

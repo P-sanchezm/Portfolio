@@ -51,7 +51,7 @@ function InterestCard({ group }: { group: InterestGroup }) {
       <Icon
         name={group.icon}
         className={clsx(
-          "pointer-events-none absolute -bottom-6 -right-6 size-36 opacity-[0.06] transition-transform duration-500 group-hover:scale-110",
+          "pointer-events-none absolute -bottom-6 -right-6 size-36 opacity-[0.11] transition-transform duration-500 group-hover:scale-110 group-hover:opacity-[0.16]",
           accent.text
         )}
         aria-hidden
