@@ -1,11 +1,6 @@
 import type { Profile } from "../types";
 import { getEmail } from "../lib/email";
 
-/**
- * Edit your personal details here.
- * Replace the email / github placeholders with your real handles,
- * and drop your photo at /public/profile/pablo-photo.png.
- */
 export const profile: Profile = {
   name: "Pablo Sánchez",
   headline:
@@ -17,8 +12,7 @@ export const profile: Profile = {
 
   email: getEmail(),
   linkedin: "https://www.linkedin.com/in/pabsanchezm/",
-  github: "https://github.com/your-username",
-  cv: "/documents/pablo-cv.pdf",
+  github: "https://github.com/P-sanchezm",
 
   photo: "/profile/pablo-photo.png",
   locations: ["Madrid", "Boston", "Singapore"],

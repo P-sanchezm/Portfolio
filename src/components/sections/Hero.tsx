@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MapPin } from "lucide-react";
 import { profile } from "../../data/profile";
+import { getCvRequestUrl } from "../../lib/email";
 import { Button } from "../ui/Button";
 import { useHeroAnimation } from "../../animations/useHeroAnimation";
 
@@ -99,13 +100,11 @@ export function Hero() {
               View Projects
             </Button>
             <Button
-              href={profile.cv}
-              target="_blank"
-              rel="noreferrer"
+              href={getCvRequestUrl()}
               variant="gold"
-              icon="download"
+              icon="mail"
             >
-              Download CV
+              Request CV
             </Button>
             <Button
               href={profile.linkedin}

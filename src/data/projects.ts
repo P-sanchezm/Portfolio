@@ -1,15 +1,5 @@
 import type { Project } from "../types";
 
-/**
- * Project showcase content.
- *
- * - `cover` images live in /public/projects/<id>/cover.png
- * - `documents` (PDFs) live in /public/documents
- * - Replace placeholder links/text with the real ones when ready.
- *
- * `featured: true` projects appear as large cards at the top.
- * Every project also appears in the filterable gallery below.
- */
 export const projects: Project[] = [
   {
     id: "synergy-hub",
@@ -33,11 +23,14 @@ export const projects: Project[] = [
       "How to translate messy organizational needs into structured software, and how to balance feature scope against what a volunteer team can actually maintain.",
     tools: ["React", "TypeScript", "Web App", "UI/UX"],
     tags: ["ERM", "Operations", "Finance", "Sponsors", "Marketing"],
-    links: [{ label: "Open app", url: "#", icon: "external" }],
+    links: [],
     documents: [],
     media: [
-      { type: "image", src: "/projects/synergy-hub/screenshot-1.png", caption: "Operations dashboard" },
-      { type: "image", src: "/projects/synergy-hub/screenshot-2.png", caption: "Sponsor & finance tracking" },
+      {
+        type: "image",
+        src: "/projects/synergy-hub/screenshot-1.png",
+        caption: "Strategy and digital presence dashboard",
+      },
     ],
   },
   {
@@ -62,10 +55,14 @@ export const projects: Project[] = [
       "How design and clear storytelling change how a technical team is perceived by sponsors and new members.",
     tools: ["Web Design", "Branding", "HTML/CSS"],
     tags: ["Web Design", "Branding", "Aerospace", "Student Team"],
-    links: [{ label: "Visit website", url: "#", icon: "external" }],
+    links: [],
     documents: [],
     media: [
-      { type: "image", src: "/projects/icai-rocket-website/screenshot-1.png", caption: "Landing page" },
+      {
+        type: "image",
+        src: "/projects/icai-rocket-website/screenshot-1.png",
+        caption: "ICAI Rocket Team projects page",
+      },
     ],
   },
   {
@@ -93,7 +90,13 @@ export const projects: Project[] = [
     documents: [
       { title: "Technical report", file: "/documents/cervical-airbag-report.pdf" },
     ],
-    media: [],
+    media: [
+      {
+        type: "image",
+        src: "/projects/cervical-airbag/test-1.png",
+        caption: "Cervical airbag simulation",
+      },
+    ],
   },
   {
     id: "space-launcher",
@@ -113,9 +116,15 @@ export const projects: Project[] = [
     impact: "A polished proof of concept for communicating an aerospace service offering.",
     tools: ["Web Design", "UI/UX"],
     tags: ["Aerospace", "Web", "Concept"],
-    links: [{ label: "View concept", url: "#", icon: "external" }],
+    links: [],
     documents: [],
-    media: [],
+    media: [
+      {
+        type: "image",
+        src: "/projects/space-launcher/shot-1.png",
+        caption: "Launch-service search interface",
+      },
+    ],
   },
   {
     id: "carbon-capture",
@@ -183,14 +192,10 @@ export const projects: Project[] = [
     tags: ["Drones", "Robotics", "Hardware"],
     links: [],
     documents: [],
-    media: [
-      { type: "image", src: "/projects/drone-v1/render.png", caption: "Frame layout" },
-      { type: "image", src: "/projects/drone-v1/electronics.png", caption: "Electronics & motor configuration" },
-    ],
+    media: [],
   },
 ];
 
-/** Category filters for the gallery (derived list kept explicit for ordering). */
 export const projectCategories: string[] = [
   "All",
   "Web App",

@@ -1,16 +1,6 @@
 import type { TimelineEntry } from "../types";
 
-/**
- * Manually-curated timeline entries (education, experience, accreditations).
- *
- * To add an entry, copy one of the objects below and edit the fields.
- * Logos go in /public/logos. If a logo is missing, a monogram badge is
- * generated automatically.
- *
- * LinkedIn-exported entries are merged in separately via
- * src/data/importedTimeline.ts — see tools/import-linkedin.bat.
- */
-export const manualTimeline: TimelineEntry[] = [
+export const timeline: TimelineEntry[] = [
   {
     id: "smu",
     type: "education",

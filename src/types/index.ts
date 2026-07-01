@@ -76,7 +76,6 @@ export interface Profile {
   email: string;
   linkedin: string;
   github: string;
-  cv: string;
   /** Path to the profile photo under /public/profile. */
   photo: string;
   /** Short location chips shown on the hero card. */

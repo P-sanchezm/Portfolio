@@ -16,7 +16,7 @@ export function Navbar() {
   const navRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
 
-  const cvLink = socialLinks.find((l) => l.label === "Download CV");
+  const cvRequestLink = socialLinks.find((l) => l.label === "Request CV");
   const linkedinLink = socialLinks.find((l) => l.label === "LinkedIn");
 
   // Entrance animation
@@ -130,17 +130,15 @@ export function Navbar() {
                 LinkedIn
               </Button>
             )}
-            {cvLink && (
+            {cvRequestLink && (
               <Button
-                href={cvLink.url}
-                target="_blank"
-                rel="noreferrer"
+                href={cvRequestLink.url}
                 variant="primary"
                 size="sm"
-                icon="download"
+                icon="mail"
                 className="hidden sm:inline-flex"
               >
-                CV
+                Request CV
               </Button>
             )}
             <button

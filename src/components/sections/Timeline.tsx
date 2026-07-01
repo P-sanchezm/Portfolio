@@ -2,7 +2,7 @@ import { Section } from "../layout/Section";
 import { SectionHeader } from "../ui/SectionHeader";
 import { LogoBadge } from "../ui/LogoBadge";
 import { Icon } from "../ui/icons";
-import { timeline } from "../../data/combinedTimeline";
+import { timeline } from "../../data/timeline";
 import type { TimelineEntry } from "../../types";
 import { useStaggeredCards } from "../../animations/useStaggeredCards";
 
