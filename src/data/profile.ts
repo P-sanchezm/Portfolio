@@ -1,5 +1,6 @@
 import type { Profile } from "../types";
 import { getEmail } from "../lib/email";
+import { assetUrl } from "../lib/assets";
 
 export const profile: Profile = {
   name: "Pablo Sánchez",
@@ -14,7 +15,7 @@ export const profile: Profile = {
   linkedin: "https://www.linkedin.com/in/pabsanchezm/",
   github: "https://github.com/P-sanchezm",
 
-  photo: "/profile/pablo-photo.png",
+  photo: assetUrl("profile/pablo-photo.png"),
   locations: ["Madrid", "Boston", "Singapore"],
   stats: [
     { label: "Disciplines", value: "Engineering + Business" },

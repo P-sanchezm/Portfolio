@@ -1,4 +1,5 @@
 import type { TimelineEntry } from "../types";
+import { assetUrl } from "../lib/assets";
 
 export const timeline: TimelineEntry[] = [
   {
@@ -9,7 +10,7 @@ export const timeline: TimelineEntry[] = [
     location: "Singapore",
     start: "2027",
     end: "2027",
-    logo: "/logos/smu.png",
+    logo: assetUrl("logos/smu.png"),
     description:
       "Planned final semester of the master's degree in Singapore, focused on business, innovation and international exposure across Asia.",
     tags: ["Business", "Asia", "Innovation"],
@@ -24,7 +25,7 @@ export const timeline: TimelineEntry[] = [
     location: "Boston, USA",
     start: "2024",
     end: "2025",
-    logo: "/logos/boston-university.png",
+    logo: assetUrl("logos/boston-university.png"),
     description:
       "International academic experience focused on engineering design, technology and multidisciplinary collaboration.",
     tags: ["Engineering Design", "International Experience"],
@@ -39,7 +40,7 @@ export const timeline: TimelineEntry[] = [
     location: "Madrid, Spain",
     start: "2023",
     end: "Present",
-    logo: "/logos/icai-rocket-team.png",
+    logo: assetUrl("logos/icai-rocket-team.png"),
     description:
       "Built the team's public website and the Synergy Hub internal platform, coordinating communication, sponsors and operations for a university aerospace team.",
     tags: ["Aerospace", "Web", "Operations", "Sponsors"],
@@ -54,7 +55,7 @@ export const timeline: TimelineEntry[] = [
     location: "Madrid, Spain",
     start: "2021",
     end: "Present",
-    logo: "/logos/icai-icade.png",
+    logo: assetUrl("logos/icai-icade.png"),
     description:
       "Dual academic background combining technical engineering with business management, strategy and entrepreneurship.",
     tags: ["Engineering", "Business", "Strategy"],

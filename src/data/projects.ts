@@ -1,4 +1,5 @@
 import type { Project } from "../types";
+import { assetUrl } from "../lib/assets";
 
 export const projects: Project[] = [
   {
@@ -8,8 +9,8 @@ export const projects: Project[] = [
     category: "Web App",
     year: "2025",
     featured: true,
-    cover: "/projects/synergy-hub/cover.png",
-    logo: "/logos/icai-rocket-team.png",
+    cover: assetUrl("projects/synergy-hub/cover.png"),
+    logo: assetUrl("logos/icai-rocket-team.png"),
     description:
       "A centralized ERM platform for documents, internal notes, objectives, finances, sponsors, marketing and team coordination.",
     problem:
@@ -28,7 +29,7 @@ export const projects: Project[] = [
     media: [
       {
         type: "image",
-        src: "/projects/synergy-hub/screenshot-1.png",
+        src: assetUrl("projects/synergy-hub/screenshot-1.png"),
         caption: "Strategy and digital presence dashboard",
       },
     ],
@@ -40,8 +41,8 @@ export const projects: Project[] = [
     category: "Web / Aerospace",
     year: "2025",
     featured: true,
-    cover: "/projects/icai-rocket-website/cover.png",
-    logo: "/logos/icai-rocket-team.png",
+    cover: assetUrl("projects/icai-rocket-website/cover.png"),
+    logo: assetUrl("logos/icai-rocket-team.png"),
     description:
       "Designed and developed the public website for the ICAI Rocket Team to communicate projects, achievements, recruitment and sponsorship opportunities.",
     problem:
@@ -60,7 +61,7 @@ export const projects: Project[] = [
     media: [
       {
         type: "image",
-        src: "/projects/icai-rocket-website/screenshot-1.png",
+        src: assetUrl("projects/icai-rocket-website/screenshot-1.png"),
         caption: "ICAI Rocket Team projects page",
       },
     ],
@@ -72,7 +73,7 @@ export const projects: Project[] = [
     category: "Engineering",
     year: "2025",
     featured: true,
-    cover: "/projects/cervical-airbag/cover.png",
+    cover: assetUrl("projects/cervical-airbag/cover.png"),
     description:
       "Sensor-data processing and crash-test analysis for a cervical airbag prototype designed to reduce whiplash and neck injuries in cyclists and other vulnerable road users.",
     problem:
@@ -88,12 +89,15 @@ export const projects: Project[] = [
     tags: ["Biomechanics", "Crash Testing", "Safety", "Mobility"],
     links: [],
     documents: [
-      { title: "Technical report", file: "/documents/cervical-airbag-report.pdf" },
+      {
+        title: "Technical report",
+        file: assetUrl("documents/cervical-airbag-report.pdf"),
+      },
     ],
     media: [
       {
         type: "image",
-        src: "/projects/cervical-airbag/test-1.png",
+        src: assetUrl("projects/cervical-airbag/test-1.png"),
         caption: "Cervical airbag simulation",
       },
     ],
@@ -105,7 +109,7 @@ export const projects: Project[] = [
     category: "Web / Aerospace",
     year: "2024",
     featured: false,
-    cover: "/projects/space-launcher/cover.png",
+    cover: assetUrl("projects/space-launcher/cover.png"),
     description:
       "A web platform concept presenting a space launcher service — mission profiles, payload options and customer-facing communication.",
     problem:
@@ -121,7 +125,7 @@ export const projects: Project[] = [
     media: [
       {
         type: "image",
-        src: "/projects/space-launcher/shot-1.png",
+        src: assetUrl("projects/space-launcher/shot-1.png"),
         caption: "Launch-service search interface",
       },
     ],
@@ -133,7 +137,7 @@ export const projects: Project[] = [
     category: "Engineering",
     year: "2024",
     featured: false,
-    cover: "/projects/carbon-capture/cover.png",
+    cover: assetUrl("projects/carbon-capture/cover.png"),
     description:
       "Engineering design study for a carbon capture plant, covering the process, key equipment and the techno-economic considerations behind it.",
     problem:
@@ -146,7 +150,10 @@ export const projects: Project[] = [
     tags: ["Sustainability", "Process Design", "Energy"],
     links: [],
     documents: [
-      { title: "Design report", file: "/documents/carbon-capture-report.pdf" },
+      {
+        title: "Design report",
+        file: assetUrl("documents/carbon-capture-report.pdf"),
+      },
     ],
     media: [],
   },
@@ -157,7 +164,7 @@ export const projects: Project[] = [
     category: "Robotics",
     year: "2023",
     featured: false,
-    cover: "/projects/line-following-car/cover.png",
+    cover: assetUrl("projects/line-following-car/cover.png"),
     description:
       "An autonomous line-following car built from sensors, motors and a microcontroller, with control logic tuned to keep it on track.",
     problem:
@@ -179,7 +186,7 @@ export const projects: Project[] = [
     category: "Robotics",
     year: "2023",
     featured: false,
-    cover: "/projects/drone-v1/cover.png",
+    cover: assetUrl("projects/drone-v1/cover.png"),
     description:
       "A first custom drone build covering the frame, electronics, motor configuration and flight setup.",
     problem:
