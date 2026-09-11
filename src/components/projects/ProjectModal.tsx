@@ -21,7 +21,7 @@ function Block({ label, children }: { label: string; children?: React.ReactNode 
   if (!children) return null;
   return (
     <div>
-      <h4 className="mb-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent-green">
+      <h4 className="mb-1.5 font-mono text-xs font-medium uppercase tracking-[0.14em] text-accent-gold">
         {label}
       </h4>
       <p className="text-sm leading-relaxed text-text-muted">{children}</p>
@@ -33,6 +33,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
   const reduced = useReducedMotion();
   const closeRef = useRef(onClose);
   const closingRef = useRef(false);
@@ -63,6 +64,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
   useEffect(() => {
     if (!project) return;
     closingRef.current = false;
+    returnFocusRef.current = document.activeElement as HTMLElement | null;
     document.body.style.overflow = "hidden";
 
     // Entrance
@@ -108,6 +110,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
     return () => {
       document.body.style.overflow = "";
       document.removeEventListener("keydown", onKey);
+      returnFocusRef.current?.focus();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [project]);
@@ -115,12 +118,13 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
   if (!project) return null;
 
   const externalLinks = (project.links ?? []).filter((l) => l.url !== "#");
+  const galleryMedia = (project.media ?? []).filter((item) => item.src !== project.cover);
 
   return createPortal(
     <div
       ref={overlayRef}
       onClick={requestClose}
-      className="fixed inset-0 z-50 flex items-stretch justify-center bg-bg-main/70 backdrop-blur-md sm:items-center sm:p-6"
+      className="fixed inset-0 z-50 flex items-stretch justify-center bg-black/45 sm:items-center sm:p-6"
       style={reduced ? undefined : { opacity: 0 }}
     >
       <div
@@ -129,7 +133,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         aria-modal="true"
         aria-label={`${project.title} case study`}
         onClick={(e) => e.stopPropagation()}
-        className="glass relative flex w-full max-w-4xl flex-col overflow-hidden rounded-none sm:max-h-[90vh] sm:rounded-3xl"
+        className="relative flex w-full max-w-5xl flex-col overflow-hidden border border-glass-border bg-bg-main sm:max-h-[92vh]"
         style={reduced ? undefined : { opacity: 0 }}
       >
         {/* Sticky close button */}
@@ -137,7 +141,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           ref={closeBtnRef}
           onClick={requestClose}
           aria-label="Close case study"
-          className="glass-soft absolute right-4 top-4 z-10 flex size-10 items-center justify-center rounded-xl text-text-main transition-colors hover:text-accent-green"
+          className="absolute right-4 top-4 z-10 flex size-10 items-center justify-center border border-glass-border bg-bg-main text-text-main transition-colors hover:border-accent-gold hover:text-accent-gold"
         >
           <X className="size-5" />
         </button>
@@ -146,7 +150,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           {/* Cover */}
           <div className="relative aspect-[16/9] w-full overflow-hidden">
             <ProjectCover src={project.cover} title={project.title} />
-            <div className="absolute inset-0 bg-gradient-to-t from-bg-main via-bg-main/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-bg-main via-bg-main/75 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 flex items-end gap-4 p-6">
               {project.logo && (
                 <LogoBadge src={project.logo} name={project.title} size={56} />
@@ -160,7 +164,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                     </span>
                   )}
                 </div>
-                <h3 className="font-display text-2xl font-bold leading-tight text-white sm:text-3xl">
+                <h3 className="font-display text-2xl font-bold leading-tight text-text-main sm:text-3xl">
                   {project.title}
                 </h3>
               </div>
@@ -168,16 +172,16 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           </div>
 
           {/* Body */}
-          <div className="flex flex-col gap-8 p-6 sm:p-8">
+            <div className="flex flex-col gap-8 p-6 sm:p-10">
             {project.subtitle && (
-              <p className="text-lg text-text-main">{project.subtitle}</p>
+              <p className="font-display text-2xl text-text-main">{project.subtitle}</p>
             )}
 
             <p className="text-base leading-relaxed text-text-muted">
               {project.description}
             </p>
 
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-x-10 gap-y-8 border-t border-glass-border pt-8 sm:grid-cols-2">
               <Block label="Problem">{project.problem}</Block>
               <Block label="What I built">{project.solution}</Block>
               <Block label="My role">{project.role}</Block>
@@ -186,7 +190,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
             {project.tools && project.tools.length > 0 && (
               <div>
-                <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-green">
+                <h4 className="mb-3 font-mono text-xs font-medium uppercase tracking-[0.14em] text-accent-gold">
                   Tools used
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -197,18 +201,12 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               </div>
             )}
 
-            {project.media && project.media.length > 0 && (
+            {galleryMedia.length > 0 && (
               <div>
-                <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-green">
+                <h4 className="mb-3 font-mono text-xs font-medium uppercase tracking-[0.14em] text-accent-gold">
                   Gallery
                 </h4>
-                <ProjectGallery media={project.media} />
-              </div>
-            )}
-
-            {project.learned && (
-              <div className="glass-soft rounded-2xl p-5">
-                <Block label="What I learned">{project.learned}</Block>
+                <ProjectGallery media={galleryMedia} />
               </div>
             )}
 

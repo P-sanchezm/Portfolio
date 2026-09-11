@@ -55,6 +55,8 @@ export interface Project {
   cover?: string;
   logo?: string;
   description: string;
+  /** Short card copy; the full description remains in the case study modal. */
+  summary?: string;
   problem?: string;
   solution?: string;
   role?: string;

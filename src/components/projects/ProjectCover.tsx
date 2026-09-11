@@ -29,7 +29,7 @@ export function ProjectCover({ src, title, className }: ProjectCoverProps) {
 
   if (!src || errored) {
     return (
-      <div
+      <span
         className={clsx(
           "bg-grid relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-bg-tertiary via-bg-secondary to-bg-main",
           className
@@ -41,7 +41,7 @@ export function ProjectCover({ src, title, className }: ProjectCoverProps) {
         >
           {initials(title)}
         </span>
-      </div>
+      </span>
     );
   }
 

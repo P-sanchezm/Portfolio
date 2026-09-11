@@ -4,21 +4,21 @@ import type { AboutPillar, InterestGroup } from "../types";
 export const aboutPillars: AboutPillar[] = [
   {
     icon: "wrench",
-    title: "Engineering mindset",
+    title: "Engineering",
     description:
-      "I break systems down, analyze how they behave, and design technical solutions — from sensor data to physical prototypes.",
+      "I like understanding how systems behave, whether I am working with sensor data, electronics, software or a physical prototype.",
   },
   {
     icon: "briefcase",
-    title: "Business strategy",
+    title: "Business",
     description:
-      "A dual background in management and strategy lets me connect technical work to value, markets and real decisions.",
+      "My business studies help me ask what a technical idea is for, who it helps and whether it can work beyond the prototype.",
   },
   {
     icon: "rocket",
-    title: "Builder mentality",
+    title: "Software",
     description:
-      "I like turning messy ideas into useful products — shipping websites, platforms and prototypes that people actually use.",
+      "I use software to organise teams, analyse experiments and turn early ideas into tools that other people can actually try.",
   },
 ];
 
@@ -26,46 +26,46 @@ export const aboutPillars: AboutPillar[] = [
 export const interests: InterestGroup[] = [
   {
     id: "strategic-systems",
-    title: "Strategic Systems",
+    title: "Defence & geopolitics",
     icon: "shield",
-    description: "How power, security and technology shape the world.",
+    description: "How nations, security and technology shape one another.",
     items: ["Defence", "Geopolitics", "Global security"],
     size: "lg",
     accent: "blue",
   },
   {
     id: "building-things",
-    title: "Building Things",
+    title: "Engineering & automation",
     icon: "wrench",
-    description: "Designing and automating things that work.",
+    description: "Designing, testing and automating useful systems.",
     items: ["Engineering", "Product design", "Automation"],
     size: "md",
     accent: "green",
   },
   {
     id: "entrepreneurship",
-    title: "Entrepreneurship",
+    title: "Starting companies",
     icon: "lightbulb",
-    description: "Turning ideas into ventures.",
+    description: "Finding where an idea, a market and a practical solution meet.",
     items: ["Business creation", "Startups", "Strategy"],
     size: "md",
     accent: "gold",
   },
   {
     id: "human-perspective",
-    title: "Human Perspective",
+    title: "Travel & languages",
     icon: "globe",
-    description: "Seeing the world through people and places.",
+    description: "Learning how people live, work and think in different places.",
     items: ["Culture", "Travel", "Languages"],
     size: "sm",
     accent: "teal",
   },
   {
     id: "performance",
-    title: "Performance",
+    title: "Outside work",
     icon: "activity",
-    description: "Staying sharp on and off the field.",
-    items: ["Sports", "Skiing", "Sailing", "Padel", "Running"],
+    description: "The activities that get me away from a screen.",
+    items: ["Skiing", "Sailing", "Padel", "Tennis", "Running"],
     size: "md",
     accent: "green",
   },

@@ -1,16 +1,12 @@
+import { ArrowUpRight } from "lucide-react";
 import { Section } from "../layout/Section";
 import { SectionHeader } from "../ui/SectionHeader";
 import { LogoBadge } from "../ui/LogoBadge";
-import { Icon } from "../ui/icons";
 import { timeline } from "../../data/timeline";
 import type { TimelineEntry } from "../../types";
 import { useStaggeredCards } from "../../animations/useStaggeredCards";
 
-/** Leading 4-digit year of an entry's start, for chronological ordering. */
-const startYear = (entry: TimelineEntry): number =>
-  parseInt(entry.start, 10) || 0;
-
-/** Oldest → newest, so the strip reads left-to-right as a journey. */
+const startYear = (entry: TimelineEntry): number => parseInt(entry.start, 10) || 0;
 const journey = [...timeline].sort((a, b) => startYear(a) - startYear(b));
 
 function formatRange(entry: TimelineEntry): string {
@@ -18,60 +14,75 @@ function formatRange(entry: TimelineEntry): string {
   return `${entry.start} – ${entry.end}`;
 }
 
-/** A single stop on the journey: logo, dates, place and organization. */
-function Stop({ entry }: { entry: TimelineEntry }) {
-  return (
-    <li
-      data-card
-      className="reveal-init relative flex flex-1 items-start gap-4 sm:flex-col sm:items-center sm:gap-3 sm:text-center"
-    >
-      <LogoBadge
-        src={entry.logo}
-        name={entry.organization}
-        size={48}
-        className="relative z-10"
-      />
-      <div className="min-w-0">
-        <p className="font-mono text-xs text-accent-green">
-          {formatRange(entry)}
-        </p>
-        {entry.location && (
-          <p className="mt-1 flex items-center gap-1 font-display text-sm font-semibold text-text-main sm:justify-center">
-            <Icon name="mapPin" className="size-3.5 shrink-0 text-text-faint" />
-            {entry.location}
-          </p>
-        )}
-        <p className="mt-0.5 text-xs text-text-muted">{entry.organization}</p>
-      </div>
-    </li>
-  );
-}
-
 export function Timeline() {
-  const ref = useStaggeredCards<HTMLUListElement>(70);
+  const ref = useStaggeredCards<HTMLOListElement>(55);
 
   return (
     <Section id="timeline" spacing="tight">
       <SectionHeader
-        index="02"
+        index="03"
         eyebrow="Journey"
-        title="The path so far"
-        description="Madrid, Boston and Singapore — where I've studied, built and grown."
+        title="Madrid, Boston—and Singapore next."
+        description="The education and team experience behind the projects. Singapore is marked as a planned 2027 chapter, not as something that has already happened."
       />
 
-      <ul
-        ref={ref}
-        className="relative mt-12 flex flex-col gap-8 sm:flex-row sm:items-start sm:gap-4"
-      >
-        {/* Connecting rail — vertical on mobile, horizontal through the badges on desktop. */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute bottom-0 left-6 top-2 w-px bg-gradient-to-b from-transparent via-glass-border to-transparent sm:inset-x-6 sm:bottom-auto sm:top-6 sm:h-px sm:w-auto sm:bg-gradient-to-r"
-        />
-        {journey.map((entry) => (
-          <Stop key={entry.id} entry={entry} />
-        ))}
-      </ul>
+      <ol ref={ref} className="mt-10 border-t border-glass-border">
+        {journey.map((entry, index) => {
+          const future = startYear(entry) > 2026;
+          return (
+            <li
+              key={entry.id}
+              data-card
+              className="reveal-init grid gap-5 border-b border-glass-border py-7 sm:grid-cols-[3.5rem_8rem_1fr] lg:grid-cols-[3.5rem_9rem_0.8fr_1.2fr] lg:gap-8"
+            >
+              <span className="font-mono text-xs text-accent-gold">0{index + 1}</span>
+              <span>
+                <span className="block font-mono text-xs text-text-main">{formatRange(entry)}</span>
+                {future && (
+                  <span className="mt-2 inline-block border border-accent-gold px-2 py-0.5 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-accent-gold">
+                    Next
+                  </span>
+                )}
+              </span>
+
+              <span className="flex items-start gap-4">
+                <LogoBadge src={entry.logo} name={entry.organization} size={44} />
+                <span>
+                  <strong className="block font-display text-xl font-medium text-text-main sm:text-2xl">
+                    {entry.organization}
+                  </strong>
+                  <span className="mt-1 block text-sm text-text-muted">{entry.location}</span>
+                </span>
+              </span>
+
+              <span className="sm:col-start-3 lg:col-start-auto">
+                <strong className="block text-sm font-medium text-text-main">{entry.title}</strong>
+                <span className="mt-2 block max-w-2xl text-sm leading-relaxed text-text-muted">
+                  {entry.description}
+                </span>
+                <span className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+                  {(entry.tags ?? []).map((tag) => (
+                    <span key={tag} className="font-mono text-[0.64rem] uppercase tracking-[0.08em] text-text-faint">
+                      {tag}
+                    </span>
+                  ))}
+                  {(entry.links ?? []).map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-xs text-accent-gold hover:text-text-main"
+                    >
+                      {link.label} <ArrowUpRight className="size-3" />
+                    </a>
+                  ))}
+                </span>
+              </span>
+            </li>
+          );
+        })}
+      </ol>
     </Section>
   );
 }

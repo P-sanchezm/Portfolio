@@ -14,7 +14,7 @@ export const socialLinks: LinkRef[] = [
 export const navLinks = [
   { label: "Home", href: "#home" },
   { label: "Profile", href: "#about" },
-  { label: "Timeline", href: "#timeline" },
+  { label: "Journey", href: "#timeline" },
   { label: "Projects", href: "#projects" },
   { label: "Interests", href: "#interests" },
   { label: "Contact", href: "#contact" },

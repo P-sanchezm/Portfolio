@@ -1,7 +1,5 @@
 import { Section } from "../layout/Section";
 import { SectionHeader } from "../ui/SectionHeader";
-import { GlassCard } from "../ui/GlassCard";
-import { Icon } from "../ui/icons";
 import { profile } from "../../data/profile";
 import { aboutPillars } from "../../data/interests";
 import { useAnimeReveal } from "../../animations/useAnimeReveal";
@@ -13,47 +11,38 @@ export function About() {
     <Section id="about">
       <div ref={ref}>
         <SectionHeader
-          index="01"
-          eyebrow="Profile"
-          title={
-            <>
-              Technical, but <span className="text-gradient">not only</span>{" "}
-              technical.
-            </>
-          }
+          index="02"
+          eyebrow="About"
+          title="One degree was never going to be enough."
+          description="Industrial engineering gives me the systems; business gives me the questions around them; software is often how I turn both into something usable."
         />
 
-        <p
-          data-reveal
-          className="reveal-init mt-6 max-w-3xl text-lg leading-relaxed text-text-muted"
-        >
-          {profile.bio}
-        </p>
+        <div className="mt-12 grid gap-12 border-t border-glass-border pt-8 lg:grid-cols-[1.15fr_0.85fr]">
+          <div data-reveal className="reveal-init">
+            <p className="max-w-3xl font-display text-2xl leading-relaxed text-text-main sm:text-3xl">
+              {profile.bio}
+            </p>
+          </div>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {aboutPillars.map((pillar, i) => (
-            <GlassCard
-              key={pillar.title}
-              interactive
-              data-reveal
-              className="reveal-init p-6"
-            >
-              <div className="flex items-center justify-between">
-                <span className="flex size-12 items-center justify-center rounded-2xl bg-accent-green/10 text-accent-green">
-                  <Icon name={pillar.icon} className="size-6" />
+          <ol className="border-t border-glass-border lg:border-t-0">
+            {aboutPillars.map((pillar, index) => (
+              <li
+                key={pillar.title}
+                data-reveal
+                className="reveal-init grid grid-cols-[2.5rem_1fr] gap-3 border-b border-glass-border py-6"
+              >
+                <span className="font-mono text-xs text-accent-gold">0{index + 1}</span>
+                <span>
+                  <strong className="block font-display text-2xl font-medium text-text-main">
+                    {pillar.title}
+                  </strong>
+                  <span className="mt-2 block text-sm leading-relaxed text-text-muted">
+                    {pillar.description}
+                  </span>
                 </span>
-                <span className="font-mono text-sm text-text-faint">
-                  0{i + 1}
-                </span>
-              </div>
-              <h3 className="mt-5 font-display text-lg font-semibold text-text-main">
-                {pillar.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                {pillar.description}
-              </p>
-            </GlassCard>
-          ))}
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </Section>

@@ -22,7 +22,7 @@ export function SectionHeader({
   return (
     <div
       className={clsx(
-        "max-w-2xl",
+        "max-w-4xl",
         align === "center" && "mx-auto text-center",
         className
       )}
@@ -30,17 +30,17 @@ export function SectionHeader({
       {(index || eyebrow) && (
         <div
           className={clsx(
-            "mb-4 flex items-center gap-3 text-sm",
+            "mb-6 flex items-center gap-3 border-t border-glass-border pt-4 text-sm",
             align === "center" && "justify-center"
           )}
           data-reveal
         >
           {index && (
-            <span className="font-mono text-accent-green">{index}</span>
+            <span className="font-mono text-xs text-accent-gold">{index}</span>
           )}
-          <span className="h-px w-8 bg-gradient-to-r from-accent-green/60 to-transparent" />
+          <span className="h-px w-8 bg-accent-gold" />
           {eyebrow && (
-            <span className="uppercase tracking-[0.2em] text-text-muted">
+            <span className="font-mono text-xs uppercase tracking-[0.16em] text-text-muted">
               {eyebrow}
             </span>
           )}
@@ -48,7 +48,7 @@ export function SectionHeader({
       )}
 
       <h2
-        className="text-balance text-3xl font-semibold leading-tight sm:text-4xl md:text-[2.75rem]"
+        className="text-balance font-display text-4xl font-medium leading-[1.02] sm:text-5xl md:text-6xl"
         data-reveal
       >
         {title}
@@ -56,7 +56,7 @@ export function SectionHeader({
 
       {description && (
         <p
-          className="mt-4 text-pretty text-base leading-relaxed text-text-muted"
+          className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-text-muted"
           data-reveal
         >
           {description}

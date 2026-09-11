@@ -12,7 +12,7 @@ export const timeline: TimelineEntry[] = [
     end: "2027",
     logo: assetUrl("logos/smu.png"),
     description:
-      "Planned final semester of the master's degree in Singapore, focused on business, innovation and international exposure across Asia.",
+      "Next: the planned final semester of my master's degree in Singapore, focused on business, innovation and a new perspective on Asia.",
     tags: ["Business", "Asia", "Innovation"],
     links: [{ label: "University", url: "https://www.smu.edu.sg", icon: "external" }],
     documents: [],
@@ -27,24 +27,9 @@ export const timeline: TimelineEntry[] = [
     end: "2025",
     logo: assetUrl("logos/boston-university.png"),
     description:
-      "International academic experience focused on engineering design, technology and multidisciplinary collaboration.",
+      "A full academic year abroad, including a collaborative engineering-design course where my team built and tested an autonomous line-following car.",
     tags: ["Engineering Design", "International Experience"],
     links: [{ label: "University", url: "https://www.bu.edu", icon: "external" }],
-    documents: [],
-  },
-  {
-    id: "icai-rocket-team",
-    type: "experience",
-    organization: "ICAI Rocket Team",
-    title: "Member — Web & Operations",
-    location: "Madrid, Spain",
-    start: "2023",
-    end: "Present",
-    logo: assetUrl("logos/icai-rocket-team.png"),
-    description:
-      "Built the team's public website and the Synergy Hub internal platform, coordinating communication, sponsors and operations for a university aerospace team.",
-    tags: ["Aerospace", "Web", "Operations", "Sponsors"],
-    links: [],
     documents: [],
   },
   {
@@ -57,7 +42,7 @@ export const timeline: TimelineEntry[] = [
     end: "Present",
     logo: assetUrl("logos/icai-icade.png"),
     description:
-      "Dual academic background combining technical engineering with business management, strategy and entrepreneurship.",
+      "A dual degree combining industrial engineering with business administration, strategy and entrepreneurship.",
     tags: ["Engineering", "Business", "Strategy"],
     links: [{ label: "University", url: "https://www.comillas.edu", icon: "external" }],
     documents: [],

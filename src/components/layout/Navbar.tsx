@@ -1,13 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Menu } from "lucide-react";
 import { clsx } from "clsx";
+import { profile } from "../../data/profile";
+import { navLinks, socialLinks } from "../../data/links";
 import { animate } from "../../animations/anime";
 import { useReducedMotion } from "../../animations/useReducedMotion";
-import { navLinks, socialLinks } from "../../data/links";
-import { profile } from "../../data/profile";
-import { Button } from "../ui/Button";
-import { ScrollProgress } from "../ui/ScrollProgress";
 import { MobileMenu } from "./MobileMenu";
+import { ScrollProgress } from "../ui/ScrollProgress";
+
+const visibleLinks = navLinks.filter((link) => link.href !== "#home" && link.href !== "#contact");
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -15,37 +16,30 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
+  const cvRequestLink = socialLinks.find((link) => link.label === "Request CV");
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
 
-  const cvRequestLink = socialLinks.find((l) => l.label === "Request CV");
-  const linkedinLink = socialLinks.find((l) => l.label === "LinkedIn");
-
-  // Entrance animation
   useEffect(() => {
     if (reduced || !navRef.current) return;
     animate(navRef.current, {
       opacity: [0, 1],
-      translateY: [-22, 0],
-      duration: 700,
-      ease: "outExpo",
-      delay: 150,
+      translateY: [-12, 0],
+      duration: 500,
+      ease: "outQuad",
     });
   }, [reduced]);
 
-  // Background opacity on scroll
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 16);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Scroll spy for the active section
   useEffect(() => {
-    const ids = navLinks.map((l) => l.href.slice(1));
-    const sections = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => Boolean(el));
-    if (!sections.length) return;
+    const sections = navLinks
+      .map((link) => document.getElementById(link.href.slice(1)))
+      .filter((section): section is HTMLElement => Boolean(section));
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -53,9 +47,10 @@ export function Navbar() {
           if (entry.isIntersecting) setActive(entry.target.id);
         });
       },
-      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+      { rootMargin: "-42% 0px -52% 0px" }
     );
-    sections.forEach((s) => observer.observe(s));
+
+    sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, []);
 
@@ -63,102 +58,72 @@ export function Navbar() {
     <>
       <header
         ref={navRef}
-        className="fixed inset-x-0 top-0 z-40 flex flex-col items-center px-4 pt-4 sm:pt-5"
+        className={clsx(
+          "fixed inset-x-0 top-0 z-40 border-b transition-colors duration-200",
+          scrolled
+            ? "border-glass-border bg-bg-main/95"
+            : "border-transparent bg-bg-main/80"
+        )}
         style={reduced ? undefined : { opacity: 0 }}
       >
-        <nav
-          className={clsx(
-            "flex w-full max-w-6xl items-center justify-between gap-4 rounded-2xl px-4 py-2.5 transition-all duration-300 sm:px-5",
-            scrolled
-              ? "glass shadow-[0_20px_60px_rgba(0,0,0,0.45)]"
-              : "border border-transparent bg-transparent"
-          )}
-        >
-          {/* Logo */}
-          <a
-            href="#home"
-            className="flex items-center gap-2 font-display text-lg font-bold"
-            aria-label="Home"
-          >
-            <span className="flex size-9 items-center justify-center rounded-xl border border-glass-border bg-white/5 text-gradient">
-              PS
-            </span>
-            <span className="hidden text-text-main sm:inline">
-              {profile.name.split(" ")[0]}
-            </span>
+        <nav className="mx-auto flex h-16 w-full max-w-[92rem] items-center justify-between px-5 sm:px-10 lg:px-16 xl:px-20">
+          <a href="#home" className="font-display text-xl font-medium text-text-main" aria-label="Home">
+            {profile.name}
           </a>
 
-          {/* Desktop links */}
-          <ul className="hidden items-center gap-1 lg:flex">
-            {navLinks.map((link) => {
-              const id = link.href.slice(1);
-              const isActive = active === id;
+          <ul className="hidden items-center gap-8 lg:flex">
+            {visibleLinks.map((link) => {
+              const isActive = active === link.href.slice(1);
               return (
                 <li key={link.href}>
                   <a
                     href={link.href}
                     aria-current={isActive ? "page" : undefined}
                     className={clsx(
-                      "relative rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors",
+                      "border-b py-1 text-sm transition-colors",
                       isActive
-                        ? "text-accent-green"
-                        : "text-text-muted hover:text-text-main"
+                        ? "border-accent-gold text-text-main"
+                        : "border-transparent text-text-muted hover:text-text-main"
                     )}
                   >
-                    {isActive && (
-                      <span className="absolute inset-0 -z-10 rounded-full bg-accent-green/15 ring-1 ring-accent-green/40 shadow-[0_0_18px_var(--green-glow)]" />
-                    )}
-                    {link.label}
+                    {link.label === "Profile" ? "About" : link.label}
                   </a>
                 </li>
               );
             })}
           </ul>
 
-          {/* Actions */}
-          <div className="flex items-center gap-2">
-            {linkedinLink && (
-              <Button
-                href={linkedinLink.url}
-                target="_blank"
-                rel="noreferrer"
-                variant="ghost"
-                size="sm"
-                icon="linkedin"
-                className="hidden sm:inline-flex"
-              >
-                LinkedIn
-              </Button>
-            )}
+          <div className="flex items-center gap-4">
             {cvRequestLink && (
-              <Button
+              <a
                 href={cvRequestLink.url}
-                variant="primary"
-                size="sm"
-                icon="mail"
-                className="hidden sm:inline-flex"
+                className="hidden text-sm font-medium text-accent-gold transition-colors hover:text-text-main sm:block"
               >
                 Request CV
-              </Button>
+              </a>
             )}
+            <a
+              href="#contact"
+              className="hidden text-sm text-text-muted transition-colors hover:text-text-main sm:block"
+            >
+              Contact
+            </a>
             <button
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
-              className="glass-soft flex size-10 items-center justify-center rounded-xl text-text-main lg:hidden"
+              aria-expanded={menuOpen}
+              className="flex size-10 items-center justify-center border border-glass-border text-text-main lg:hidden"
             >
               <Menu className="size-5" />
             </button>
           </div>
         </nav>
-
-        <ScrollProgress />
+        <div className="mx-auto w-full max-w-[92rem] px-5 sm:px-10 lg:px-16 xl:px-20">
+          <ScrollProgress />
+        </div>
       </header>
 
-      <MobileMenu
-        open={menuOpen}
-        onClose={() => setMenuOpen(false)}
-        active={active}
-      />
+      <MobileMenu open={menuOpen} onClose={closeMenu} active={active} />
     </>
   );
 }

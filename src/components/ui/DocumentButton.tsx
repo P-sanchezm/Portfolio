@@ -9,9 +9,9 @@ export function DocumentButton({ doc }: { doc: DocumentRef }) {
       href={doc.file}
       target="_blank"
       rel="noreferrer"
-      className="glass-soft group flex items-center gap-3 rounded-2xl px-4 py-3 transition-colors hover:border-accent-green/40 hover:bg-white/[0.07]"
+      className="group flex items-center gap-3 border border-glass-border px-4 py-3 transition-colors hover:border-accent-gold"
     >
-      <span className="flex size-9 items-center justify-center rounded-xl bg-accent-green/10 text-accent-green">
+      <span className="flex size-9 items-center justify-center bg-bg-secondary text-accent-green">
         <Icon name="fileText" className="size-4" aria-hidden />
       </span>
       <span className="flex-1 text-sm font-medium text-text-main">
@@ -29,9 +29,9 @@ export function LinkButton({ link }: { link: LinkRef }) {
       href={link.url}
       target={link.url.startsWith("#") ? undefined : "_blank"}
       rel="noreferrer"
-      className="glass-soft group flex items-center gap-3 rounded-2xl px-4 py-3 transition-colors hover:border-accent-green/40 hover:bg-white/[0.07]"
+      className="group flex items-center gap-3 border border-glass-border px-4 py-3 transition-colors hover:border-accent-gold"
     >
-      <span className="flex size-9 items-center justify-center rounded-xl bg-white/5 text-text-main">
+      <span className="flex size-9 items-center justify-center bg-bg-secondary text-text-main">
         <Icon name={link.icon ?? "external"} className="size-4" aria-hidden />
       </span>
       <span className="flex-1 text-sm font-medium text-text-main">

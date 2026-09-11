@@ -23,7 +23,7 @@ function GalleryItem({ item }: { item: MediaItem }) {
   const [errored, setErrored] = useState(false);
 
   return (
-    <figure className="glass-soft overflow-hidden rounded-2xl">
+    <figure className="overflow-hidden border border-glass-border bg-bg-secondary/40">
       <div className="aspect-[16/10] overflow-hidden bg-bg-secondary">
         {item.type === "video" ? (
           <video
@@ -47,7 +47,8 @@ function GalleryItem({ item }: { item: MediaItem }) {
           <img
             src={item.src}
             alt={item.caption ?? ""}
-            loading="lazy"
+            loading="eager"
+            decoding="async"
             onError={() => setErrored(true)}
             className="h-full w-full object-cover"
           />

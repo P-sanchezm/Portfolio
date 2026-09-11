@@ -21,10 +21,7 @@ function monogram(name: string): string {
   return (words[0][0] + words[1][0]).toUpperCase();
 }
 
-/**
- * Rounded glass container for an institution / company / project logo.
- * Falls back to a generated monogram when no image is available.
- */
+/** Institution or project mark with a generated monogram fallback. */
 export function LogoBadge({ src, name, size = 56, className }: LogoBadgeProps) {
   const [errored, setErrored] = useState(false);
   const showImage = src && !errored;
@@ -32,10 +29,8 @@ export function LogoBadge({ src, name, size = 56, className }: LogoBadgeProps) {
   return (
     <div
       className={clsx(
-        "flex shrink-0 items-center justify-center overflow-hidden rounded-2xl",
-        // Logos are usually dark/coloured artwork made for light backgrounds,
-        // so give them a light tile; the monogram fallback keeps the glass look.
-        showImage ? "bg-white ring-1 ring-black/10" : "glass-soft",
+        "flex shrink-0 items-center justify-center overflow-hidden border border-glass-border",
+        showImage ? "bg-white" : "bg-bg-secondary",
         className
       )}
       style={{ width: size, height: size }}

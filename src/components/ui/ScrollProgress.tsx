@@ -43,14 +43,29 @@ export function ScrollProgress() {
 
   return (
     <div
-      className="pointer-events-none mt-2 h-[6px] w-full max-w-6xl overflow-hidden rounded-full bg-white/5"
+      className="pointer-events-none h-1 w-full overflow-hidden bg-glass-border"
       aria-hidden
     >
       <div
         ref={barRef}
-        className="h-full w-full rounded-full bg-gradient-to-r from-accent-green via-accent-blue to-accent-gold shadow-[0_0_12px_var(--green-glow)]"
+        className="relative h-full w-full bg-accent-gold"
         style={{ transformOrigin: "left center", transform: "scaleX(0)" }}
-      />
+      >
+        <svg
+          aria-hidden
+          viewBox="0 0 24 24"
+          fill="none"
+          className="absolute right-0 top-1/2 size-2.5 -translate-y-1/2 text-accent-gold"
+        >
+          <path
+            d="M3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12Z"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
     </div>
   );
 }

@@ -1,42 +1,30 @@
 @import "tailwindcss";
 
-/* ------------------------------------------------------------------ */
-/*  Theme tokens — exposed to Tailwind as utilities                    */
-/*  e.g. bg-bg-main, text-accent-green, border-glass-border           */
-/* ------------------------------------------------------------------ */
 @theme {
-  --color-bg-main: #0b1a30;
-  --color-bg-secondary: #122843;
-  --color-bg-tertiary: #1c3a5e;
-
-  --color-glass: rgba(8, 24, 45, 0.58);
-  --color-glass-border: rgba(255, 255, 255, 0.14);
-
-  --color-text-main: #e6f1ff;
-  --color-text-muted: #8ea4bd;
-  --color-text-faint: #5b7a99;
-
-  --color-accent-green: #4fffd2;
-  --color-accent-teal: #00c2a8;
-  --color-accent-blue: #3b82f6;
-  --color-accent-gold: #d6aa4f;
-
-  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-
-  --radius-glass: 1.25rem;
+  --color-bg-main: #f2f0e8;
+  --color-bg-secondary: #e9e6dc;
+  --color-bg-tertiary: #ddd9cd;
+  --color-glass: rgba(255, 255, 255, 0.34);
+  --color-glass-border: #cbc7bc;
+  --color-text-main: #171819;
+  --color-text-muted: #4f5558;
+  --color-text-faint: #5d666a;
+  --color-accent-green: #355b78;
+  --color-accent-teal: #355b78;
+  --color-accent-blue: #355b78;
+  --color-accent-gold: #9e4226;
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-sans: "IBM Plex Sans", Arial, sans-serif;
+  --font-mono: "IBM Plex Sans", Arial, sans-serif;
+  --radius-glass: 0.25rem;
 }
 
-/* ------------------------------------------------------------------ */
-/*  Base layer                                                         */
-/* ------------------------------------------------------------------ */
 @layer base {
   :root {
-    --green-glow: rgba(79, 255, 210, 0.22);
-    --gold-glow: rgba(214, 170, 79, 0.2);
-    --blue-glow: rgba(59, 130, 246, 0.2);
-
-    color-scheme: dark;
+    --green-glow: transparent;
+    --gold-glow: transparent;
+    --blue-glow: transparent;
+    color-scheme: light;
     scroll-behavior: smooth;
   }
 
@@ -51,12 +39,16 @@
   }
 
   body {
+    min-width: 320px;
+    overflow-x: hidden;
     background-color: var(--color-bg-main);
+    background-image:
+      radial-gradient(circle at 16% 12%, rgba(255, 255, 255, 0.48), transparent 28%),
+      radial-gradient(circle at 82% 35%, rgba(70, 103, 127, 0.035), transparent 25%);
     color: var(--color-text-main);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
   }
 
   h1,
@@ -65,10 +57,16 @@
   h4,
   .font-display {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
   }
 
-  /* Honour the user's reduced-motion preference globally */
+  a,
+  button,
+  input,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -80,7 +78,6 @@
     }
   }
 
-  /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -89,190 +86,106 @@
     background: var(--color-bg-main);
   }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-      180deg,
-      rgba(79, 255, 210, 0.35),
-      rgba(59, 130, 246, 0.35)
-    );
+    border: 3px solid var(--color-bg-main);
     border-radius: 999px;
-    border: 2px solid var(--color-bg-main);
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(
-      180deg,
-      rgba(79, 255, 210, 0.6),
-      rgba(59, 130, 246, 0.6)
-    );
+    background: var(--color-text-faint);
   }
 
   ::selection {
-    background: rgba(79, 255, 210, 0.25);
-    color: #ffffff;
+    background: rgba(181, 82, 50, 0.2);
+    color: var(--color-text-main);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent-green);
-    outline-offset: 2px;
-    border-radius: 4px;
+    border-radius: 2px;
+    outline: 2px solid var(--color-accent-gold);
+    outline-offset: 3px;
   }
 }
 
-/* ------------------------------------------------------------------ */
-/*  Reusable component classes                                         */
-/* ------------------------------------------------------------------ */
 @layer components {
-  /* Frosted glass surface used across the whole UI */
-  .glass {
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.08),
-      rgba(255, 255, 255, 0.02)
-    );
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--color-glass-border);
-    box-shadow:
-      0 24px 80px rgba(0, 0, 0, 0.35),
-      inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  }
-
+  .glass,
   .glass-soft {
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.05),
-      rgba(255, 255, 255, 0.015)
-    );
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--color-glass-border);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
-  /* Thin gradient hairline border used on hover-able cards */
   .gradient-border {
     position: relative;
   }
   .gradient-border::before {
     content: "";
     position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(
-      135deg,
-      rgba(79, 255, 210, 0.45),
-      rgba(59, 130, 246, 0.15) 45%,
-      rgba(214, 170, 79, 0.4)
-    );
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.4s ease;
+    inset: -1px;
+    border: 1px solid transparent;
     pointer-events: none;
+    transition: border-color 180ms ease;
   }
   .gradient-border:hover::before {
-    opacity: 1;
+    border-color: var(--color-accent-gold);
   }
 
-  /* Gradient text */
   .text-gradient {
-    background: linear-gradient(
-      120deg,
-      var(--color-text-main) 0%,
-      var(--color-accent-green) 55%,
-      var(--color-accent-blue) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    color: var(--color-accent-gold);
   }
 
+  .contact-link {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .contact-link::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    content: "";
+    background: rgba(255, 255, 255, 0.72);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 240ms ease;
+  }
+
+  .contact-link:hover::before,
+  .contact-link:focus-visible::before {
+    transform: scaleX(1);
+  }
 }
 
-/* ------------------------------------------------------------------ */
-/*  Utilities & ambient background                                    */
-/* ------------------------------------------------------------------ */
 @layer utilities {
-  /* Subtle technical grid overlay */
   .bg-grid {
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    background-size: 56px 56px;
+      linear-gradient(rgba(70, 103, 127, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(70, 103, 127, 0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
   }
 
-  /* Radial mask so the grid fades toward the edges */
   .mask-radial {
-    -webkit-mask-image: radial-gradient(
-      ellipse 80% 60% at 50% 0%,
-      #000 40%,
-      transparent 100%
-    );
-    mask-image: radial-gradient(
-      ellipse 80% 60% at 50% 0%,
-      #000 40%,
-      transparent 100%
-    );
+    -webkit-mask-image: linear-gradient(to bottom, #000, transparent 80%);
+    mask-image: linear-gradient(to bottom, #000, transparent 80%);
   }
 
-  /* Hidden until the reveal hook animates it in. No permanent `will-change`:
-     the reveal hook adds it only for the duration of the animation and clears
-     it on complete, so we don't keep a GPU layer alive per card forever. */
   .reveal-init {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(14px);
   }
 
-  /* When reduced motion is requested, never hide content behind reveals */
   @media (prefers-reduced-motion: reduce) {
     .reveal-init {
       opacity: 1 !important;
       transform: none !important;
     }
   }
-
 }
 
-/* ------------------------------------------------------------------ */
-/*  Ambient animated background blobs                                  */
-/* ------------------------------------------------------------------ */
 .ambient-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(64px);
-  opacity: 0.5;
-  pointer-events: none;
+  display: none;
 }
 
-@keyframes float-slow {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(0, -28px, 0) scale(1.06);
-  }
-}
-
-@keyframes spin-slow {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-float-slow {
-  animation: float-slow 12s ease-in-out infinite;
-}
+.animate-float-slow,
 .animate-spin-slow {
-  animation: spin-slow 60s linear infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-float-slow,
-  .animate-spin-slow {
-    animation: none !important;
-  }
+  animation: none;
 }

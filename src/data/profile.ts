@@ -5,11 +5,11 @@ import { assetUrl } from "../lib/assets";
 export const profile: Profile = {
   name: "Pablo Sánchez",
   headline:
-    "Engineering + Business student building at the intersection of technology, strategy and entrepreneurship.",
+    "Engineering, software & business.",
   location: "Madrid · Boston · Singapore",
   current:
     "Industrial Engineering & Business Administration student at ICAI–ICADE.",
-  bio: "I am an Industrial Engineering and Business Administration student from Spain, currently studying at Universidad Pontificia Comillas ICAI–ICADE. I spent one academic year at Boston University and will complete the final semester of my master's at Singapore Management University. My work usually lives between engineering, business, technology and entrepreneurship: building tools, analyzing systems, designing technical projects, and trying to turn messy ideas into useful products.",
+  bio: "Most of my projects begin with something that does not quite work: information spread across spreadsheets, a noisy sensor trace, or a prototype that needs another iteration. I enjoy getting close enough to the technical detail to build the thing, then stepping back to decide whether it is useful and how to explain it. I study Industrial Engineering and Business Administration at ICAI–ICADE, spent the 2024–25 academic year at Boston University, and plan to complete the final semester of my master's at Singapore Management University in 2027.",
 
   email: getEmail(),
   linkedin: "https://www.linkedin.com/in/pabsanchezm/",
@@ -19,7 +19,7 @@ export const profile: Profile = {
   locations: ["Madrid", "Boston", "Singapore"],
   stats: [
     { label: "Disciplines", value: "Engineering + Business" },
-    { label: "Projects shipped", value: "7+" },
-    { label: "Focus", value: "Aerospace · Tech · Strategy" },
+    { label: "Selected projects", value: "7" },
+    { label: "Next chapter", value: "Singapore 2027" },
   ],
 };

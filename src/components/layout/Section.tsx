@@ -22,12 +22,12 @@ export function Section({
     <section
       id={id}
       className={clsx(
-        "relative scroll-mt-28",
-        spacing === "normal" ? "py-20 sm:py-28" : "py-14 sm:py-20",
+        "relative scroll-mt-20",
+        spacing === "normal" ? "py-8 sm:py-16" : "py-6 sm:py-12",
         className
       )}
     >
-      <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">{children}</div>
+      <div className="mx-auto w-full max-w-[92rem] px-5 sm:px-10 lg:px-16 xl:px-20">{children}</div>
     </section>
   );
 }

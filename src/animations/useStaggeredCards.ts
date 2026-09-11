@@ -13,6 +13,9 @@ export function useStaggeredCards<T extends HTMLElement = HTMLElement>(
     y: 34,
     duration: 700,
     staggerMs,
-    threshold: 0.1,
+    // Mobile layouts stack cards into a tall container. Observing the whole
+    // container at a 10% threshold can therefore never fire, leaving every
+    // card at opacity: 0. Start as soon as the section enters the viewport.
+    threshold: 0,
   });
 }

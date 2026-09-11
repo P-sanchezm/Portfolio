@@ -7,15 +7,15 @@ interface TagProps {
   accent?: boolean;
 }
 
-/** Small rounded pill used for tags, categories and metadata. */
+/** Compact technical label used for categories and metadata. */
 export function Tag({ children, className, accent = false }: TagProps) {
   return (
     <span
       className={clsx(
-        "inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium tracking-wide",
+        "inline-flex items-center border px-2.5 py-1 font-mono text-[0.68rem] uppercase tracking-[0.08em]",
         accent
-          ? "border-accent-green/30 bg-accent-green/10 text-accent-green"
-          : "border-white/10 bg-white/5 text-text-muted",
+          ? "border-accent-gold/40 bg-accent-gold/5 text-accent-gold"
+          : "border-glass-border bg-transparent text-text-muted",
         className
       )}
     >
