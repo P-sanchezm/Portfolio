@@ -9,7 +9,7 @@ export function Footer() {
           <a href="#home" className="font-display text-2xl text-text-main">
             Pablo Sánchez
           </a>
-          <p className="mt-2 text-sm text-text-muted">Engineering, software & business.</p>
+          <p className="mt-2 text-sm text-text-muted">Strategy, Engineering & Entrepreneurship.</p>
         </div>
 
         <div className="text-center font-mono text-xs uppercase leading-relaxed tracking-[0.08em] text-text-faint">

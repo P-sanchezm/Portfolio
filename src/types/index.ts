@@ -117,6 +117,7 @@ export type IconName =
   | "shield"
   | "lightbulb"
   | "activity"
+  | "compass"
   | "mapPin"
   | "external"
   | "github"

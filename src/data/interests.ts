@@ -3,22 +3,22 @@ import type { AboutPillar, InterestGroup } from "../types";
 /** The three "who I am" pillars shown in the About section. */
 export const aboutPillars: AboutPillar[] = [
   {
+    icon: "compass",
+    title: "Strategy",
+    description:
+      "I like stepping back from the immediate problem to understand the context, the trade-offs and where an idea can create lasting value.",
+  },
+  {
     icon: "wrench",
     title: "Engineering",
     description:
       "I like understanding how systems behave, whether I am working with sensor data, electronics, software or a physical prototype.",
   },
   {
-    icon: "briefcase",
-    title: "Business",
-    description:
-      "My business studies help me ask what a technical idea is for, who it helps and whether it can work beyond the prototype.",
-  },
-  {
     icon: "rocket",
-    title: "Software",
+    title: "Entrepreneurship",
     description:
-      "I use software to organise teams, analyse experiments and turn early ideas into tools that other people can actually try.",
+      "I enjoy turning early ideas into useful products, testing assumptions and finding a practical path from prototype to real-world impact.",
   },
 ];
 

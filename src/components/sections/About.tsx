@@ -3,6 +3,7 @@ import { SectionHeader } from "../ui/SectionHeader";
 import { profile } from "../../data/profile";
 import { aboutPillars } from "../../data/interests";
 import { useAnimeReveal } from "../../animations/useAnimeReveal";
+import { Icon } from "../ui/icons";
 
 export function About() {
   const ref = useAnimeReveal<HTMLDivElement>({ selector: "[data-reveal]" });
@@ -31,7 +32,12 @@ export function About() {
                 data-reveal
                 className="reveal-init grid grid-cols-[2.5rem_1fr] gap-3 border-b border-glass-border py-6"
               >
-                <span className="font-mono text-xs text-accent-gold">0{index + 1}</span>
+                <span className="flex flex-col items-start gap-4">
+                  <span className="font-mono text-xs text-accent-gold">0{index + 1}</span>
+                  <span className="flex size-8 items-center justify-center border border-glass-border text-accent-green">
+                    <Icon name={pillar.icon} className="size-4" strokeWidth={1.5} aria-hidden="true" />
+                  </span>
+                </span>
                 <span>
                   <strong className="block font-display text-2xl font-medium text-text-main">
                     {pillar.title}

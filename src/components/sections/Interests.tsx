@@ -2,6 +2,7 @@ import { Section } from "../layout/Section";
 import { SectionHeader } from "../ui/SectionHeader";
 import { interests } from "../../data/interests";
 import { useStaggeredCards } from "../../animations/useStaggeredCards";
+import { Icon } from "../ui/icons";
 
 export function Interests() {
   const ref = useStaggeredCards<HTMLOListElement>(50);
@@ -20,9 +21,14 @@ export function Interests() {
           <li
             key={group.id}
             data-card
-            className="reveal-init flex min-h-72 flex-col border-r border-b border-glass-border p-5 sm:p-6"
+            className="group reveal-init flex min-h-72 flex-col border-r border-b border-glass-border p-5 transition-colors duration-200 hover:bg-white/35 sm:p-6"
           >
-            <span className="font-mono text-xs text-accent-gold">0{index + 1}</span>
+            <div className="flex items-start justify-between">
+              <span className="font-mono text-xs text-accent-gold">0{index + 1}</span>
+              <span className="flex size-11 items-center justify-center border border-glass-border text-accent-green transition-colors duration-200 group-hover:border-accent-gold group-hover:text-accent-gold">
+                <Icon name={group.icon} className="size-5" strokeWidth={1.5} aria-hidden="true" />
+              </span>
+            </div>
             <h3 className="mt-10 font-display text-2xl font-medium leading-tight text-text-main">
               {group.title}
             </h3>

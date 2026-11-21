@@ -5,7 +5,7 @@ import { assetUrl } from "../lib/assets";
 export const profile: Profile = {
   name: "Pablo Sánchez",
   headline:
-    "Engineering, software & business.",
+    "Strategy, Engineering & Entrepreneurship.",
   location: "Madrid · Boston · Singapore",
   current:
     "Industrial Engineering & Business Administration student at ICAI–ICADE.",
