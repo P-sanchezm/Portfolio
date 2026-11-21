@@ -32,7 +32,7 @@ export function Hero() {
   return (
     <section id="home" ref={heroRef} className="pt-28 pb-10 sm:pt-32 sm:pb-16">
       <div className="mx-auto w-full max-w-[92rem] px-5 sm:px-10 lg:px-16 xl:px-20">
-        <div className="grid items-stretch gap-8 border-b border-glass-border pb-10 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12 lg:pb-12">
+        <div className="grid items-stretch gap-8 border-b border-glass-border pb-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:pb-12 xl:grid-cols-[1.16fr_0.84fr]">
           <div className="min-w-0 flex flex-col justify-between py-1 lg:min-h-[34rem]">
             <p
               data-hero-fade
@@ -104,7 +104,11 @@ export function Hero() {
             </div>
           </div>
 
-          <figure data-hero-card className="relative h-[29rem] self-start overflow-hidden lg:h-[34rem]" style={{ opacity: 0 }}>
+          <figure
+            data-hero-card
+            className="relative h-[23rem] w-full self-start overflow-hidden sm:h-[26rem] lg:mt-8 lg:h-[29rem] lg:max-w-[30rem] lg:justify-self-end"
+            style={{ opacity: 0 }}
+          >
             <Portrait />
             <figcaption className="absolute inset-x-0 bottom-0 flex justify-between bg-bg-main/90 px-4 py-3 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-text-muted">
               <span>Field note 01</span>
